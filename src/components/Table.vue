@@ -1,47 +1,51 @@
 <template>
-  <el-table :data="tableData" style="width: 100%">
-    <el-table-column prop="date" label="日日期" width="180"></el-table-column>
-    <el-table-column prop="name" label="姓名" width="180"></el-table-column>
-    <el-table-column prop="address" label="地址"></el-table-column>
+  <el-table
+    :data="problems"
+    style="width: 100%"
+  >
+    <el-table-column
+      prop="idproblem"
+      label="idproblem"
+      width="180"
+    ></el-table-column>
+    <el-table-column
+      prop="title"
+      label="title"
+      width="180"
+    ></el-table-column>
+    <el-table-column
+      prop="description"
+      label="description"
+      width="500"
+    ></el-table-column>
+    <el-table-column
+      prop="committed"
+      label="committed"
+    ></el-table-column>
+    <el-table-column
+      prop="passed"
+      label="passed"
+    ></el-table-column>
+    <el-table-column
+      prop="tag"
+      label="tag"
+    ></el-table-column>
   </el-table>
-
-  <!-- <div>
-        <div>
-      <p>
-        If Element is successfully added to this project, you'll see an
-        <code v-text="'<el-button>'"></code>
-        below
-      </p>
-      <el-button>el-button</el-button>
-    </div>
-        <h1>我是表格牛阿</h1>
-  </div>-->
 </template>
  <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
-  create() {
+  create() {},
+  mounted() {
     axios
       .get("http://127.0.0.1:8082/problem/list")
       .then(response => {
-        console.log(response);
-        console.log("heeeeeeellllooooo");
-        this.problem = response.data;
+        this.problems = response.data;
+        console.log(response.data[1].id);
       })
-      .catch(error => {
+      .catch(function(error) {
         console.log(error);
-        alert("网络错误，不能访问");
       });
-      axios.get('https://api.github.com/search/repositories?q=tetris+language:assembly&sort=stars&order=desc')
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-
-    // https://api.github.com/search/repositories?q=tetris+language:assembly&sort=stars&order=desc
-    //http://127.0.0.1:8082/problem/list"
   },
   data() {
     return {
@@ -52,7 +56,7 @@ export default {
           address: "上海市普陀区金沙江路 1518 弄"
         }
       ],
-      problem: [{}]
+      problems: []
     };
   }
 };
